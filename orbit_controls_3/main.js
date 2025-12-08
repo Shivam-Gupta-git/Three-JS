@@ -1,16 +1,23 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+// create a scene.............................
 const scene = new THREE.Scene();
+
+// create a camera which determine what we'll see when we render the scene......................
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+// Create a box geometru and a basic material and combine them into a mesh.....................
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } );
 const cube = new THREE.Mesh( geometry, material );
+
+// add a cube to the scene......................
 scene.add( cube );
 
 camera.position.z = 5;
 
+// create a renderer and attach it to our document.......................
 const canvas = document.querySelector('canvas')
 const renderer = new THREE.WebGLRenderer({canvas: canvas});
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -21,7 +28,10 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix()
 })
 
+// create orbit control and attech them to the camera and renderer's DOM element.......................
 const controls = new OrbitControls( camera, renderer.domElement );
+
+// Enable damping for smother control.......................
 controls.enableDamping = true // use for element moving smooth
 controls.autoRotate = true // use for simple rotating
 controls.autoRotateSpeed = 10.0 // use for controling rotating speed
